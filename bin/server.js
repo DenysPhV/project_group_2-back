@@ -13,7 +13,7 @@ mongoose
     process.exit(1);
   });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
   console.log(`Server running. Use our API on port: ${PORT}`);
