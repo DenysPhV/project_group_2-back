@@ -69,7 +69,10 @@
                 "schema": {
                   "type": "object",
                            "properties": {
-                                  "username": {
+                             "user":{
+                               "type":"object",
+                               "properties":{
+"username": {
                                     "type": "string",
                                     "description": "The name of the user",
                                     "example": "Bob"
@@ -84,6 +87,9 @@
                                 "description": "User's id",
                                 "example": "507f1f77bcf86cd799439011"
                                   }
+                               }
+                             }
+                                  
                             }
                 }
               }
@@ -135,6 +141,30 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "type":"object",
+                  "properties":{
+                   "token": {
+                        "type": "string",
+                        "description": "token",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZmMyMDg1YmQwOTM2NTI4MTA3Y2UyNzQiLCJzaWQiOiI1ZmMyZDJmY2UxZDIwNTA2NzAyYmRkMjIiLCJpYXQiOjE2MDY2MDM1MTYsImV4cCI6MTYwNjYwNzExNn0.rJ_QjU4KvA76H96RHsvOBChK0Vjbd0NmqjMxdQVJIXB"
+                      },
+                      "user": {
+                        "type":"object",
+                        "properties":{
+                               "username": {
+                                    "type": "string",
+                                    "description": "The name of the user",
+                                    "example": "Bob"
+                                  }, 
+                                "email": {
+                                  "type": "string",
+                                  "description": "User's email",
+                                  "format": "email"
+                                  }
+                        }
+                      }
+                  
+                  }
                   
                 }
               }
