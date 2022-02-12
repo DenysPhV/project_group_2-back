@@ -458,7 +458,7 @@
     "schemas": {
         "Users": {
         "type": "object",
-        "required": ["name","email", "password"],
+        "required": ["username","email", "password"],
         "properties": {
           "_id": {
             "type": "string",
