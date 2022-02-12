@@ -39,9 +39,9 @@
             "application/json": {
               "schema": {
                         "type": "object",
-                          "required": ["name","email", "password"],
+                          "required": ["username","email", "password"],
                            "properties": {
-                             "name": {
+                             "username": {
                                 "type": "string",
                                 "description": "The name of the user",
                                 "example": "Bob"
@@ -69,7 +69,7 @@
                 "schema": {
                   "type": "object",
                            "properties": {
-                                  "name": {
+                                  "username": {
                                     "type": "string",
                                     "description": "The name of the user",
                                     "example": "Bob"
@@ -111,13 +111,26 @@
           "content": {
             "application/json": {
               "schema": {
-                
+                "type": "object",
+                          "required": ["email", "password"],
+                           "properties": {
+                              "email": {
+                              "type": "string",
+                              "description": "User's email",
+                              "format": "email"
+                              },
+                             "password": {
+                             "type": "string",
+                             "description": "User's password",
+                              "example": "qwerty123"
+                             }
+                            }
               }
             }
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -131,8 +144,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "403": {
+            "description": "Email doesn't exist / Password is wrong",
             "content": {}
           }
         }
@@ -421,7 +434,7 @@
             "type": "string",
             "description": "The auto-generated id of the user"
           },
-          "name": {
+          "username": {
             "type": "string",
             "description": "The name of the user",
             "example": "Bob"
