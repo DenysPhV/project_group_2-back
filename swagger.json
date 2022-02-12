@@ -174,8 +174,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "403": {
-            "description": "Email doesn't exist / Password is wrong",
+          "401": {
+            "description": "Email or password is wrong",
             "content": {}
           }
         }
