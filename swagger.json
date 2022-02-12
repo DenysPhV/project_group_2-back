@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:3000" }],
+  "servers": [{ "url": "http://localhost:3001" }],
   "tags": [
     {
       "name": "Users",
@@ -38,7 +38,25 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                        "type": "object",
+                          "required": ["username","email", "password"],
+                           "properties": {
+                             "username": {
+                                "type": "string",
+                                "description": "The name of the user",
+                                "example": "Bob"
+                              }, 
+                             "email": {
+                              "type": "string",
+                              "description": "User's email",
+                              "format": "email"
+                              },
+                             "password": {
+                             "type": "string",
+                             "description": "User's password",
+                              "example": "qwerty123"
+                             }
+                            }
               }
             }
           }
@@ -49,7 +67,30 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "type": "object",
+                           "properties": {
+                             "user":{
+                               "type":"object",
+                               "properties":{
+"username": {
+                                    "type": "string",
+                                    "description": "The name of the user",
+                                    "example": "Bob"
+                                  }, 
+                                "email": {
+                                  "type": "string",
+                                  "description": "User's email",
+                                  "format": "email"
+                                  },
+                                "id": {
+                                "type": "string",
+                                "description": "User's id",
+                                "example": "507f1f77bcf86cd799439011"
+                                  }
+                               }
+                             }
+                                  
+                            }
                 }
               }
             }
@@ -76,18 +117,55 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                "type": "object",
+                          "required": ["email", "password"],
+                           "properties": {
+                              "email": {
+                              "type": "string",
+                              "description": "User's email",
+                              "format": "email"
+                              },
+                             "password": {
+                             "type": "string",
+                             "description": "User's password",
+                              "example": "qwerty123"
+                             }
+                            }
               }
             }
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "type":"object",
+                  "properties":{
+                   "token": {
+                        "type": "string",
+                        "description": "token",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZmMyMDg1YmQwOTM2NTI4MTA3Y2UyNzQiLCJzaWQiOiI1ZmMyZDJmY2UxZDIwNTA2NzAyYmRkMjIiLCJpYXQiOjE2MDY2MDM1MTYsImV4cCI6MTYwNjYwNzExNn0.rJ_QjU4KvA76H96RHsvOBChK0Vjbd0NmqjMxdQVJIXB"
+                      },
+                      "user": {
+                        "type":"object",
+                        "properties":{
+                               "username": {
+                                    "type": "string",
+                                    "description": "The name of the user",
+                                    "example": "Bob"
+                                  }, 
+                                "email": {
+                                  "type": "string",
+                                  "description": "User's email",
+                                  "format": "email"
+                                  }
+                        }
+                      }
+                  
+                  }
+                  
                 }
               }
             }
@@ -96,8 +174,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Email or password is wrong",
             "content": {}
           }
         }
@@ -115,7 +193,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                
               }
             }
           }
@@ -126,7 +204,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                 
                 }
               }
             }
@@ -154,7 +232,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                
               }
             }
           }
@@ -165,7 +243,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  
                 }
               }
             }
@@ -193,7 +271,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                
               }
             }
           }
@@ -204,7 +282,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  
                 }
               }
             }
@@ -232,7 +310,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                
               }
             }
           }
@@ -243,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  
                 }
               }
             }
@@ -269,7 +347,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+               
               }
             }
           }
@@ -280,7 +358,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  
                 }
               }
             }
@@ -308,7 +386,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+                
               }
             }
           }
@@ -319,7 +397,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  
                 }
               }
             }
@@ -347,7 +425,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
+               
               }
             }
           }
@@ -358,7 +436,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  
                 }
               }
             }
@@ -386,54 +464,7 @@
             "type": "string",
             "description": "The auto-generated id of the user"
           },
-          "name": {
-            "type": "string",
-            "description": "The name of the user",
-            "example": "Bob"
-          }, 
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "qwerty123"
-          },
-          "token": {
-            "type": "string",
-            "description": "The token of the user",
-            "default": "null"
-          },
-          "balance": {
-            "type": "number",
-            "description": "The balance of the user",
-            "default": "0"
-          },
-          "createdAt": {
-            "type": "string($date)",
-            "description": "The date of the user creation",
-            "example": "2021-08-18T19:30:05.799+00:00"
-          },
-          "updatedAt": {
-            "type": "string($date)",
-            "description": "The date of the user creation",
-            "example": "2021-08-18T19:30:05.799+00:00"
-          }
-
-
-        }
-      },
-        "Transaction": {
-        "type": "object",
-        "required": ["name","email", "password"],
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "The auto-generated id of the user"
-          },
-          "name": {
+          "username": {
             "type": "string",
             "description": "The name of the user",
             "example": "Bob"
@@ -472,43 +503,97 @@
 
         }
       },
-      "RegistrationRequest": {
+        "Transaction": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": ["typeTx","date", "month","year","sum","balance","categoryId","owner"],
         "properties": {
-          "email": {
+          "_id": {
             "type": "string",
-            "description": "User's email",
-            "format": "email"
+            "description": "The auto-generated id of the user"
           },
-          "password": {
+          "typeTx": {
             "type": "string",
-            "description": "User's password",
-            "example": "qwerty123"
+            "description": "The type of the transaction 'income' or 'spend'",
+            "example": "income"
+          }, 
+          "date": {
+            "type": "string($date)",
+            "description": "The date of create transaction",
+            "example": "2022-02-12T05:53:35.180+00:00"
+          },
+          "month": {
+            "type": "Number",
+            "description": "The month of create transaction",
+            "example": "2"
+          },
+           "year": {
+            "type": "Number",
+            "description": "The month of create transaction",
+            "example": "2022"
+          },
+          "sum": {
+            "type": "Number",
+            "description": "Value of 'income' or 'spend'",
+            "example": "1000"
+          },
+          "balance": {
+            "type": "number",
+            "description": "Balance after transaction",
+            "example": "25846"
+          },
+          "comment": {
+            "type": "String",
+            "description": "The comment to transaction",
+            "example": "Gift to son"
+          },
+          "categoryId": {
+            "type": "ObjectId",
+            "description": "The category id of transaction",
+            "example": "ObjectId('62074a5178fc6d0b79ccfc53')"
+          },
+           "owner": {
+            "type": "ObjectId",
+            "description": "The owner id of this transaction",
+            "example": "ObjectId('62074a5178fc6d0b79ccfc53')"
+          },
+          "createdAt": {
+            "type": "string($date)",
+            "description": "The date of the transaction creation",
+            "example": "2022-02-12T05:49:05.406+00:00"
+          },
+          "updatedAt": {
+            "type": "string($date)",
+            "description": "The date of the transaction creation",
+            "example": "2022-02-12T05:53:35.180+00:00"
           }
+
+
         }
       },
-      "RegistrationResponse": {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            },
-            "subscription": {
-              "type": "string",
-              "description": "subscription",
-              "example": "starter"
-            }
+        "Categories": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The auto-generated id of the user"
           },
-        
-        "example": {
-    "user": {
-        "email": "saasd@ukr.net",
-        "subscription": "starter"
-    }
-}
+          "name": {
+            "type": "string",
+            "description": "The name of the category",
+            "example": "Разное"
+          }, 
+          "createdAt": {
+            "type": "string($date)",
+            "description": "The date of the transaction creation",
+            "example": "2022-02-12T05:49:05.406+00:00"
+          },
+          "updatedAt": {
+            "type": "string($date)",
+            "description": "The date of the transaction creation",
+            "example": "2022-02-12T05:53:35.180+00:00"
+          }
+        }
       }
     },
     "securitySchemes": {
