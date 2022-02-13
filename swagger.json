@@ -452,7 +452,6 @@
         "tags": ["Categories"],
         "summary": "Get all categories / Получить все категории",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Registration's object",
           "required": true,
@@ -460,6 +459,50 @@
             "application/json": {
               "schema": {
                
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Categories"],
+        "summary": "Add category / Добавление новой категории",
+        "parameters": [],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                 "type": "object",
+                          "required": ["nameCategory"],
+                           "properties": {
+                              "nameCategory": {
+                              "type": "string",
+                              "description": "Category",
+                              "example": "Разное"
+                              }
+                            }
               }
             }
           }
@@ -606,13 +649,13 @@
       },
         "Categories": {
         "type": "object",
-        "required": ["name"],
+        "required": ["nameCategory"],
         "properties": {
           "_id": {
             "type": "string",
             "description": "The auto-generated id of the user"
           },
-          "name": {
+          "nameCategory": {
             "type": "string",
             "description": "The name of the category",
             "example": "Разное"

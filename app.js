@@ -18,7 +18,7 @@ app.use(express.static('public'));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/api/category', categoryRouter);
+app.use('/api/categories', categoryRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });

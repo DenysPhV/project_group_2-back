@@ -4,6 +4,7 @@ const router = express.Router();
 const { Category } = require('../models');
 const { joiSchema } = require('../models/category');
 
+// Добавление новой категории
 router.post('/', async (req, res, next) => {
   try {
     const { error } = joiSchema.validate(req.body);
@@ -23,3 +24,10 @@ router.post('/', async (req, res, next) => {
 });
 
 module.exports = router;
+
+// {
+//   "nameCategory": "Разное",
+//   "_id": "62091748b71f06d6de2cfcf8",
+//   "createdAt": "2022-02-13T14:35:52.388Z",
+//   "updatedAt": "2022-02-13T14:35:52.388Z"
+// }
