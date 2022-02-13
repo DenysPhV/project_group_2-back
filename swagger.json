@@ -577,8 +577,48 @@
           }
         }
       }
+
+    },
+     "/api/categories/{categoryId}": {
+            "delete": {
+        "tags": ["Categories"],
+        "summary": "Delete category / Удаление категории",
+        "parameters": [
+                {
+            "name": "categoryId",
+            "in": "path",
+            "description": "Categoryes id ('id' field in categoryes object)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                          "example": {"message": "Category deleted"}
+                          } 
+                }
+              }
+            
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+                "application/json": {
+                "schema": {
+                          "example": {"message": "Not Found"}
+                          } 
+                }
+            }
+          }
+        }
+      }
     }
   },
+
 
   "components": {
     "schemas": {
