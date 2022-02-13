@@ -452,25 +452,46 @@
         "tags": ["Categories"],
         "summary": "Get all categories / Получить все категории",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-               
-              }
-            }
-          }
-        },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
                   
+        "example": [
+  {
+    "_id": "62091748b71f06d6de2cfcf8",
+    "nameCategory": "Разное",
+    "createdAt": "2022-02-13T14:35:52.388Z",
+    "updatedAt": "2022-02-13T14:35:52.388Z"
+  },
+  {
+    "_id": "62091b80a2ad0a81fada8587",
+    "nameCategory": "Регулярный доход",
+    "createdAt": "2022-02-13T14:53:52.627Z",
+    "updatedAt": "2022-02-13T14:53:52.627Z"
+  },
+  {
+    "_id": "62091cfea2ad0a81fada8589",
+    "nameCategory": "Машина",
+    "createdAt": "2022-02-13T15:00:14.366Z",
+    "updatedAt": "2022-02-13T15:00:14.366Z"
+  },
+  {
+    "_id": "62091d56a2ad0a81fada858b",
+    "nameCategory": "Продукты",
+    "createdAt": "2022-02-13T15:01:42.727Z",
+    "updatedAt": "2022-02-13T15:01:42.727Z"
+  },
+  {
+    "_id": "62091da3a2ad0a81fada858d",
+    "nameCategory": "Нерегулярный доход",
+    "createdAt": "2022-02-13T15:02:59.963Z",
+    "updatedAt": "2022-02-13T15:02:59.963Z"
+  }
+]
+      
                 }
               }
             }
@@ -481,6 +502,77 @@
           },
           "409": {
             "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Categories"],
+        "summary": "Add category / Добавление новой категории",
+        "parameters": [],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                 "type": "object",
+                          "required": ["nameCategory"],
+                           "properties": {
+                              "nameCategory": {
+                              "type": "string",
+                              "description": "Category",
+                              "example": "Разное"
+                              }
+                            }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                         "type": "object",
+        "required": ["nameCategory"],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The auto-generated id of the user",
+            "example": "62091748b71f06d6de2cfcf8"
+          },
+          "nameCategory": {
+            "type": "string",
+            "description": "The name of the category",
+            "example": "Разное"
+          }, 
+          "createdAt": {
+            "type": "string($date)",
+            "description": "The date of the category creation",
+            "example": "2022-02-13T14:35:52.388Z"
+          },
+          "updatedAt": {
+            "type": "string($date)",
+            "description": "The date of the category update",
+            "example": "2022-02-13T14:35:52.388Z"
+          }
+        } 
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Validation failed",
+            "content": {}
+          },
+          "409": {
+            "description": "This category already exists",
             "content": {}
           }
         }
@@ -606,13 +698,13 @@
       },
         "Categories": {
         "type": "object",
-        "required": ["name"],
+        "required": ["nameCategory"],
         "properties": {
           "_id": {
             "type": "string",
             "description": "The auto-generated id of the user"
           },
-          "name": {
+          "nameCategory": {
             "type": "string",
             "description": "The name of the category",
             "example": "Разное"
@@ -620,12 +712,12 @@
           "createdAt": {
             "type": "string($date)",
             "description": "The date of the transaction creation",
-            "example": "2022-02-12T05:49:05.406+00:00"
+            "example": "2022-02-13T14:35:52.388Z"
           },
           "updatedAt": {
             "type": "string($date)",
             "description": "The date of the transaction creation",
-            "example": "2022-02-12T05:53:35.180+00:00"
+            "example": "2022-02-13T14:35:52.388Z"
           }
         }
       }
