@@ -20,6 +20,10 @@ const userSchema = Schema(
       required: [true, 'Email is required'],
       unique: true,
     },
+    balance: {
+      type: Number,
+      default: 0,
+    },
 
     token: {
       type: String,
