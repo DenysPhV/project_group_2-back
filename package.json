@@ -1,6 +1,11 @@
 {
   "name": "project_group_2-back",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.x",
+    "npm": "6.x",
+    "yarn": "1.x"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
