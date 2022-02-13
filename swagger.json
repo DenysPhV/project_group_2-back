@@ -39,9 +39,9 @@
             "application/json": {
               "schema": {
                         "type": "object",
-                          "required": ["username","email", "password"],
+                          "required": ["name","email", "password"],
                            "properties": {
-                             "username": {
+                             "name": {
                                 "type": "string",
                                 "description": "The name of the user",
                                 "example": "Bob"
@@ -72,7 +72,7 @@
                              "user":{
                                "type":"object",
                                "properties":{
-"username": {
+"name": {
                                     "type": "string",
                                     "description": "The name of the user",
                                     "example": "Bob"
@@ -151,7 +151,7 @@
                       "user": {
                         "type":"object",
                         "properties":{
-                               "username": {
+                               "name": {
                                     "type": "string",
                                     "description": "The name of the user",
                                     "example": "Bob"
@@ -204,7 +204,7 @@
                                   "description":"The auto-generated id of the user",
                                   "example":"507f1f77bcf86cd799439011"
                                 },
-                               "username": {
+                               "name": {
                                     "type": "string",
                                     "description": "The name of the user",
                                     "example": "Bob"
@@ -492,13 +492,13 @@
     "schemas": {
         "Users": {
         "type": "object",
-        "required": ["username","email", "password"],
+        "required": ["name","email", "password"],
         "properties": {
           "_id": {
             "type": "string",
             "description": "The auto-generated id of the user"
           },
-          "username": {
+          "name": {
             "type": "string",
             "description": "The name of the user",
             "example": "Bob"
