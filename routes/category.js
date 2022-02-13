@@ -4,9 +4,10 @@ const { Conflict } = require('http-errors');
 
 const { Category } = require('../models');
 const { joiSchema } = require('../models/category');
+const { authenticate } = require('../middleware');
 
 // Получить все категории
-router.get('/', async (req, res, next) => {
+router.get('/', authenticate, async (req, res, next) => {
   try {
     const categories = await Category.find();
     res.json(categories);
@@ -16,7 +17,7 @@ router.get('/', async (req, res, next) => {
 });
 
 // Добавление новой категории
-router.post('/', async (req, res, next) => {
+router.post('/', authenticate, async (req, res, next) => {
   try {
     const { error } = joiSchema.validate(req.body);
     if (error) {
@@ -41,7 +42,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // Удалить категорию по id.
-router.delete('/:categoryId', async (req, res, next) => {
+router.delete('/:categoryId', authenticate, async (req, res, next) => {
   const { categoryId } = req.params;
   console.log(categoryId);
   try {
