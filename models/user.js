@@ -5,6 +5,11 @@ const emailRegexp = /^\w+([.-]?\w+)+@\w+([.:]?\w+)+(\.[a-zA-Z0-9]{2,3})+$/;
 
 const userSchema = Schema(
   {
+    name: {
+      type: String,
+      default: 'Guest',
+    },
+
     password: {
       type: String,
       required: [true, 'Password is required'],
