@@ -187,24 +187,48 @@
         "summary": "Get all user information / Получить всю информацию о пользователе",
         "parameters": [],
         "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                
-              }
-            }
-          }
-        },
+        
         "responses": {
           "201": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                 
+                  "type":"object",
+                  "properties":{
+                      "user": {
+                        "type":"object",
+                        "properties":{
+                                "_id":{
+                                  "type":"string",
+                                  "description":"The auto-generated id of the user",
+                                  "example":"507f1f77bcf86cd799439011"
+                                },
+                               "username": {
+                                    "type": "string",
+                                    "description": "The name of the user",
+                                    "example": "Bob"
+                                  }, 
+                                "email": {
+                                  "type": "string",
+                                  "description": "User's email",
+                                  "format": "email"
+                                  },
+                                "token":{
+                                    "type":"String",
+                                    "description":"The token of the user",
+                                    "example":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZmMyMDg1YmQwOTM2NTI4MTA3Y2UyNzQiLCJzaWQiOiI1ZmMyZDJmY2UxZDIwNTA2NzAyYmRkMjIiLCJpYXQiOjE2MDY2MDM1MTYsImV4cCI6MTYwNjYwNzExNn0.rJ_QjU4KvA76H96RHsvOBChK0Vjbd0NmqjMxdQVJIXB"
+                                  },
+                                "balance": {
+                                  "type": "integer",
+                                  "description": "The balance of the user",
+                                  "example": "2500"
+                                  }
+
+                        }
+                      }
+                  
+                  }
                 }
               }
             }
@@ -220,11 +244,19 @@
         }
       }
     },
-    "/api/users/$_id/balance": {
+    "/api/users/{Id}/balance": {
       "patch": {
         "tags": ["Users"],
         "summary": "Update user balance / Обновить баланс пользователя",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "Id of the curren user",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Registration's object",
@@ -232,18 +264,37 @@
           "content": {
             "application/json": {
               "schema": {
-                
+                "type":"object",
+                "properties":{
+                  "balance": {
+                                  "type": "integer",
+                                  "description": "The balance of the user",
+                                  "example": "1000"
+                                  }
+
+                }
               }
             }
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  
+                  "type":"object",
+                  "properties":{
+                    "status": {
+                      "type":"string",
+                      "example": "succes"
+                    },
+                    "balance": {
+                                  "type": "integer",
+                                  "description": "The balance of the user",
+                                  "example": "1000"
+                                  }
+                  }
                 }
               }
             }
@@ -252,8 +303,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized (invalid access token)",
             "content": {}
           }
         }
@@ -265,35 +316,18 @@
         "summary": "Logout / Выйти из системы",
         "parameters": [],
         "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                
-              }
-            }
-          }
-        },
         "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  
-                }
-              }
-            }
-          },
+          "204": {
+            "description": "Successful operation"
+                },
           "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
+            "description": "No token provided"
+                },
+          "401": {
+            "description": "Unauthorized (invalid access token)"
           },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
+          "404": {
+            "description": "Invalid user / Invalid session"
           }
         }
       }
@@ -458,7 +492,7 @@
     "schemas": {
         "Users": {
         "type": "object",
-        "required": ["name","email", "password"],
+        "required": ["username","email", "password"],
         "properties": {
           "_id": {
             "type": "string",
@@ -485,7 +519,7 @@
             "default": "null"
           },
           "balance": {
-            "type": "number",
+            "type": "integer",
             "description": "The balance of the user",
             "default": "0"
           },
