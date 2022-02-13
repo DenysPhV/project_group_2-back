@@ -5,6 +5,7 @@ const transactionSchema = Schema(
   {
     typeTx: {
       type: String,
+      enum: ['income', 'expense'],
       required: true,
     },
     date: {
@@ -31,8 +32,7 @@ const transactionSchema = Schema(
       type: String,
     },
     categoryId: {
-      type: Schema.Types.ObjectId,
-      ref: 'category',
+      type: String,
       required: true,
     },
     owner: {
@@ -48,12 +48,13 @@ const Transaction = model('transaction', transactionSchema);
 
 const joiSchemaTransaction = Joi.object({
   typeTx: Joi.string().required(),
-  date: Joi.string().required(),
-  month: Joi.number().required(),
-  year: Joi.number().required(),
+  date: Joi.string(),
+  month: Joi.number(),
+  year: Joi.number(),
   sum: Joi.number().required(),
-  balance: Joi.number().required(),
+  balance: Joi.number(),
   comment: Joi.string(),
+  categoryId: Joi.string().required(),
 });
 
 module.exports = {
