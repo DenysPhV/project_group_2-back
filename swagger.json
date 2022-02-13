@@ -447,11 +447,12 @@
         }
       }
     },
-    "/api/categories": {
+"/api/categories": {
       "get": {
         "tags": ["Categories"],
         "summary": "Get all categories / Получить все категории",
         "parameters": [],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -500,9 +501,9 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
+          "401": {
+            "description": "Unauthorized (invalid access token)",
+              "content": {}
           }
         }
       },
@@ -510,6 +511,7 @@
         "tags": ["Categories"],
         "summary": "Add category / Добавление новой категории",
         "parameters": [],
+        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Registration's object",
           "required": true,
@@ -567,6 +569,10 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
+          "401": {
+            "description": "Unauthorized (invalid access token)",
+            "content": {}
+          },
           "404": {
             "description": "Validation failed",
             "content": {}
@@ -577,8 +583,47 @@
           }
         }
       }
+
+    },
+"/api/categories/{categoryId}": {
+            "delete": {
+        "tags": ["Categories"],
+        "summary": "Delete category / Удаление категории",
+        "parameters": [
+                {
+            "name": "categoryId",
+            "in": "path",
+            "description": "Categoryes id ('id' field in categoryes object)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                          "example": {"message": "Category deleted"}
+                          } 
+                }
+              }
+            
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token)",
+              "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
     }
   },
+
 
   "components": {
     "schemas": {
