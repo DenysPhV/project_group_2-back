@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:3001" },{ "url": "http://localhost:3001" }],
+  "servers": [{ "url": "http://localhost:3001" },{ "url": "https://dvf-project-group-2-back.herokuapp.com/" }],
   "tags": [
     {
       "name": "Users",
@@ -312,7 +312,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                
+                "$ref": "#/components/schemas/Transaction"
                 }
               }
             }
@@ -321,8 +321,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized (invalid access token)",
             "content": {}
           }
         }
@@ -332,17 +332,7 @@
         "summary": "Get all information about user transactions / Получить всю информацию  о транзакциях пользователя",
         "parameters": [],
         "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                
-              }
-            }
-          }
-        },
+
         "responses": {
           "201": {
             "description": "Successful operation",
@@ -358,8 +348,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized (invalid access token)",
             "content": {}
           }
         }
@@ -397,8 +387,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized (invalid access token)",
             "content": {}
           }
         }
