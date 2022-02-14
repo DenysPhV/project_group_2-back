@@ -54,7 +54,8 @@ const joiSchemaTransaction = Joi.object({
   sum: Joi.number().required(),
   balance: Joi.number(),
   comment: Joi.string(),
-  categoryId: Joi.string().required(),
+  // categoryId: Joi.string().required(),
+  nameCategory: Joi.string().required(),
 });
 
 module.exports = {

@@ -1,4 +1,4 @@
-const { Transaction, User } = require('../../models');
+const { Transaction, User, Category } = require('../../models');
 const { joiSchemaTransaction } = require('../../models/transaction');
 const { BadRequest } = require('http-errors');
 
@@ -9,23 +9,31 @@ const add = async (req, res, next) => {
       throw new BadRequest(error.message);
     }
     const { _id, balance } = req.user;
-    console.log(balance);
-    const { sum, typeTx } = req.body;
+    const { sum, typeTx, comment, nameCategory, date } = req.body;
+
     let newBalance;
-    if (typeTx === 'income') newBalance = balance + sum;
-    if (typeTx === 'expense') newBalance = balance - sum;
+    if (typeTx === 'income') newBalance = balance + Number(sum);
+    if (typeTx === 'expense') newBalance = balance - Number(sum);
 
-    const date = new Date();
-    const year = date.getFullYear() % 100;
+    if (newBalance < 0) {
+      throw new BadRequest('Недостаточно средств');
+    }
 
-    const month = date.getMonth();
+    const newDate = new Date(date);
+    const year = newDate.getFullYear();
+    const month = newDate.getMonth();
+
+    const { _id: categoryId } = await Category.findOne({ nameCategory });
 
     const newTransaction = await Transaction.create({
-      ...req.body,
-      date,
+      typeTx,
+      date: newDate,
       month,
       year,
+      sum,
       balance: newBalance,
+      comment,
+      categoryId,
       owner: _id,
     });
     res.status(201).json(newTransaction);
