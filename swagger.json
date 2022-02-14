@@ -565,6 +565,10 @@
           "404": {
             "description": "Not Found",
             "content": {}
+          },
+          "409": {
+            "description": "This category cannot be deleted because it is used in transactions",
+            "content": {}
           }
         }
       }
