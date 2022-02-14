@@ -1,10 +1,13 @@
 const express = require('express');
-const { User } = require('../models');
 const { BadRequest, Conflict, Unauthorized } = require('http-errors');
-const { joiRegisterSchema, joiLoginSchema } = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+
+const { User } = require('../models');
+const { logout } = require('../controllers/user');
+const { authenticate } = require('../middleware');
+const { joiRegisterSchema, joiLoginSchema } = require('../models/user');
 
 const { SECRET_KEY } = process.env;
 const router = express.Router();
@@ -64,5 +67,7 @@ router.post('/login', async (req, res, next) => {
     next(error);
   }
 });
+
+router.get('/logout', authenticate, logout);
 
 module.exports = router;
