@@ -278,7 +278,30 @@
           "content": {
             "application/json": {
               "schema": {
-               
+                 "type": "object",
+                 "required": ["typeTx","date", "month","year","sum","balance","categoryId","owner"], 
+                 "properties": {
+                  "typeTx": {
+                    "type": "string",
+                    "description": "The type of the transaction 'income' or 'spend'",
+                    "example": "income"
+                  }, 
+                  "sum": {
+                    "type": "Number",
+                    "description": "Value of 'income' or 'spend'",
+                    "example": "1000"
+                  },
+                  "comment": {
+                    "type": "String",
+                    "description": "The comment to transaction",
+                    "example": "Подарок"
+                  },
+                  "categoryId": {
+                    "type": "String",
+                    "description": "The category id of transaction",
+                    "example": "620960d811efb6729e961639"
+                  }
+                 }
               }
             }
           }
@@ -289,7 +312,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  
+                
                 }
               }
             }
