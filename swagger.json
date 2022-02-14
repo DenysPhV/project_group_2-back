@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:3001" }],
+  "servers": [{ "url": "http://localhost:3001" },{ "url": "https://dvf-project-group-2-back.herokuapp.com/" }],
   "tags": [
     {
       "name": "Users",
@@ -26,8 +26,8 @@
       "description": "End-points for сategory collection."
     }
   ],
-  "paths": {
-    "/api/users/signup": {
+"paths": {
+"/api/users/signup": {
       "post": {
         "tags": ["Users"],
         "summary": "User registration / Регистрация пользователя",
@@ -72,7 +72,7 @@
                              "user":{
                                "type":"object",
                                "properties":{
-"name": {
+                                "name": {
                                     "type": "string",
                                     "description": "The name of the user",
                                     "example": "Bob"
@@ -106,7 +106,7 @@
         }
       }
     },
-    "/api/users/login": {
+"/api/users/login": {
     "post": {
         "tags": ["Users"],
         "summary": "User authentication / Аутентификация пользователя",
@@ -181,7 +181,7 @@
         }
       }
     },
-    "/api/users/current": {
+"/api/users/current": {
       "get": {
         "tags": ["Users"],
         "summary": "Get all user information / Получить всю информацию о пользователе",
@@ -244,73 +244,7 @@
         }
       }
     },
-    "/api/users/{Id}/balance": {
-      "patch": {
-        "tags": ["Users"],
-        "summary": "Update user balance / Обновить баланс пользователя",
-        "parameters": [
-          {
-            "name": "Id",
-            "in": "path",
-            "description": "Id of the curren user",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type":"object",
-                "properties":{
-                  "balance": {
-                                  "type": "integer",
-                                  "description": "The balance of the user",
-                                  "example": "1000"
-                                  }
-
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type":"object",
-                  "properties":{
-                    "status": {
-                      "type":"string",
-                      "example": "succes"
-                    },
-                    "balance": {
-                                  "type": "integer",
-                                  "description": "The balance of the user",
-                                  "example": "1000"
-                                  }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "401": {
-            "description": "Unauthorized (invalid access token)",
-            "content": {}
-          }
-        }
-      }
-    },
-    "/api/users/logout": {
+"/api/users/logout": {
       "post": {
         "tags": ["Users"],
         "summary": "Logout / Выйти из системы",
@@ -332,45 +266,8 @@
         }
       }
     },
-    "/api/transactions": {
-      "get": {
-        "tags": ["Transactions"],
-        "summary": "Get all information about user transactions / Получить всю информацию  о транзакциях пользователя",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
-          }
-        }
-      },
-     "post": {
+"/api/transactions": {
+      "post": {
         "tags": ["Transactions"],
         "summary": "Add new transaction / Добавить новую транзакцию",
         "parameters": [],
@@ -381,7 +278,30 @@
           "content": {
             "application/json": {
               "schema": {
-               
+                 "type": "object",
+                 "required": ["typeTx","date", "month","year","sum","balance","categoryId","owner"], 
+                 "properties": {
+                  "typeTx": {
+                    "type": "string",
+                    "description": "The type of the transaction 'income' or 'spend'",
+                    "example": "income"
+                  }, 
+                  "sum": {
+                    "type": "Number",
+                    "description": "Value of 'income' or 'spend'",
+                    "example": "1000"
+                  },
+                  "comment": {
+                    "type": "String",
+                    "description": "The comment to transaction",
+                    "example": "Подарок"
+                  },
+                  "categoryId": {
+                    "type": "String",
+                    "description": "The category id of transaction",
+                    "example": "620960d811efb6729e961639"
+                  }
+                 }
               }
             }
           }
@@ -392,7 +312,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  
+                "$ref": "#/components/schemas/Transaction"
                 }
               }
             }
@@ -401,14 +321,66 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized (invalid access token)",
+            "content": {}
+          }
+        }
+      },
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "Get all information about user transactions / Получить всю информацию  о транзакциях пользователя",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                                {
+                                  "_id": "620a151b740b8d3f34aabfb0",
+                                  "typeTx": "income",
+                                  "date": "Mon Feb 14 2022 10:38:51 GMT+0200 (Восточная Европа, стандартное время)",
+                                  "month": 2,
+                                  "year": 22,
+                                  "sum": 1000,
+                                  "balance": 1000,
+                                  "comment": "Подарок",
+                                  "categoryId": "620960d811efb6729e961639",
+                                  "owner": "620931770a8d2ef1efb1d157"
+                                },
+                                {
+                                  "_id": "620a1555740b8d3f34aabfb4",
+                                  "typeTx": "income",
+                                  "date": "Mon Feb 14 2022 10:39:49 GMT+0200 (Восточная Европа, стандартное время)",
+                                  "month": 2,
+                                  "year": 22,
+                                  "sum": 1000,
+                                  "balance": 2000,
+                                  "comment": "Подарок",
+                                  "categoryId": "620960d811efb6729e961639",
+                                  "owner": "620931770a8d2ef1efb1d157"
+                                }
+                              ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token)",
             "content": {}
           }
         }
       }
     },
-    "/api/transactions/statistics": {
+"/api/transactions/statistics": {
       "get": {
         "tags": ["Transactions"],
         "summary": "Get transaction statistics. Filter by month and year / Получить статистику транзакций. Фильтровать по месяцу и году",
@@ -440,73 +412,14 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Unauthorized (invalid access token)",
             "content": {}
           }
         }
       }
     },
 "/api/categories": {
-      "get": {
-        "tags": ["Categories"],
-        "summary": "Get all categories / Получить все категории",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  
-        "example": [
-  {
-    "_id": "62091748b71f06d6de2cfcf8",
-    "nameCategory": "Разное",
-    "createdAt": "2022-02-13T14:35:52.388Z",
-    "updatedAt": "2022-02-13T14:35:52.388Z"
-  },
-  {
-    "_id": "62091b80a2ad0a81fada8587",
-    "nameCategory": "Регулярный доход",
-    "createdAt": "2022-02-13T14:53:52.627Z",
-    "updatedAt": "2022-02-13T14:53:52.627Z"
-  },
-  {
-    "_id": "62091cfea2ad0a81fada8589",
-    "nameCategory": "Машина",
-    "createdAt": "2022-02-13T15:00:14.366Z",
-    "updatedAt": "2022-02-13T15:00:14.366Z"
-  },
-  {
-    "_id": "62091d56a2ad0a81fada858b",
-    "nameCategory": "Продукты",
-    "createdAt": "2022-02-13T15:01:42.727Z",
-    "updatedAt": "2022-02-13T15:01:42.727Z"
-  },
-  {
-    "_id": "62091da3a2ad0a81fada858d",
-    "nameCategory": "Нерегулярный доход",
-    "createdAt": "2022-02-13T15:02:59.963Z",
-    "updatedAt": "2022-02-13T15:02:59.963Z"
-  }
-]
-      
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "401": {
-            "description": "Unauthorized (invalid access token)",
-              "content": {}
-          }
-        }
-      },
       "post": {
         "tags": ["Categories"],
         "summary": "Add category / Добавление новой категории",
@@ -582,11 +495,70 @@
             "content": {}
           }
         }
+      },
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get all categories / Получить все категории",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  
+        "example": [
+  {
+    "_id": "62091748b71f06d6de2cfcf8",
+    "nameCategory": "Разное",
+    "createdAt": "2022-02-13T14:35:52.388Z",
+    "updatedAt": "2022-02-13T14:35:52.388Z"
+  },
+  {
+    "_id": "62091b80a2ad0a81fada8587",
+    "nameCategory": "Регулярный доход",
+    "createdAt": "2022-02-13T14:53:52.627Z",
+    "updatedAt": "2022-02-13T14:53:52.627Z"
+  },
+  {
+    "_id": "62091cfea2ad0a81fada8589",
+    "nameCategory": "Машина",
+    "createdAt": "2022-02-13T15:00:14.366Z",
+    "updatedAt": "2022-02-13T15:00:14.366Z"
+  },
+  {
+    "_id": "62091d56a2ad0a81fada858b",
+    "nameCategory": "Продукты",
+    "createdAt": "2022-02-13T15:01:42.727Z",
+    "updatedAt": "2022-02-13T15:01:42.727Z"
+  },
+  {
+    "_id": "62091da3a2ad0a81fada858d",
+    "nameCategory": "Нерегулярный доход",
+    "createdAt": "2022-02-13T15:02:59.963Z",
+    "updatedAt": "2022-02-13T15:02:59.963Z"
+  }
+]
+      
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (invalid access token)",
+              "content": {}
+          }
+        }
       }
 
     },
 "/api/categories/{categoryId}": {
-            "delete": {
+      "delete": {
         "tags": ["Categories"],
         "summary": "Delete category / Удаление категории",
         "parameters": [
@@ -617,6 +589,10 @@
           },
           "404": {
             "description": "Not Found",
+            "content": {}
+          },
+          "409": {
+            "description": "This category cannot be deleted because it is used in transactions",
             "content": {}
           }
         }
@@ -684,7 +660,7 @@
           },
           "typeTx": {
             "type": "string",
-            "description": "The type of the transaction 'income' or 'spend'",
+            "description": "The type of the transaction 'income' or 'expense'",
             "example": "income"
           }, 
           "date": {

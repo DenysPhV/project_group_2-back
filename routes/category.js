@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Conflict } = require('http-errors');
 
-const { Category } = require('../models');
+const { Category, Transaction } = require('../models');
 const { joiSchema } = require('../models/category');
 const { authenticate } = require('../middleware');
 
@@ -46,6 +46,13 @@ router.delete('/:categoryId', authenticate, async (req, res, next) => {
   const { categoryId } = req.params;
   console.log(categoryId);
   try {
+    const tempTransaction = Transaction.findOne({ categoryId });
+    if (tempTransaction) {
+      throw new Conflict(
+        'This category cannot be deleted because it is used in transactions',
+      );
+    }
+
     const deleteCategory = await Category.findOneAndRemove({
       _id: categoryId,
     });
