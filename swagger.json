@@ -660,7 +660,7 @@
           },
           "typeTx": {
             "type": "string",
-            "description": "The type of the transaction 'income' or 'spend'",
+            "description": "The type of the transaction 'income' or 'expense'",
             "example": "income"
           }, 
           "date": {
