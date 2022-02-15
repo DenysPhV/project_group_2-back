@@ -222,7 +222,7 @@
       }
     },
 "/api/users/logout": {
-      "post": {
+      "get": {
         "tags": ["Users"],
         "summary": "Logout / Выйти из системы",
         "parameters": [],
