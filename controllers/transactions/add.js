@@ -1,6 +1,8 @@
+const { BadRequest } = require('http-errors');
+
 const { Transaction, User, Category } = require('../../models');
 const { joiSchemaTransaction } = require('../../models/transaction');
-const { BadRequest } = require('http-errors');
+const { balanceCalculation } = require('../../helpers');
 
 const add = async (req, res, next) => {
   try {
@@ -11,9 +13,8 @@ const add = async (req, res, next) => {
     const { _id, balance } = req.user;
     const { sum, typeTx, comment, nameCategory, date } = req.body;
 
-    let newBalance;
-    if (typeTx === 'income') newBalance = balance + Number(sum);
-    if (typeTx === 'expense') newBalance = balance - Number(sum);
+    // Расчет нового баланса
+    const newBalance = balanceCalculation(typeTx, balance, sum);
 
     if (newBalance < 0) {
       throw new BadRequest('Недостаточно средств');
