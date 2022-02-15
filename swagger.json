@@ -281,6 +281,11 @@
                  "type": "object",
                  "required": ["typeTx","date", "month","year","sum","balance","categoryId","owner"], 
                  "properties": {
+                  "date": {
+                      "type": "string",
+                      "description": "The date of create transaction",
+                      "example": "12.02.2022"
+                    },
                   "typeTx": {
                     "type": "string",
                     "description": "The type of the transaction 'income' or 'spend'",
@@ -296,10 +301,10 @@
                     "description": "The comment to transaction",
                     "example": "Подарок"
                   },
-                  "categoryId": {
+                  "nameCategory": {
                     "type": "String",
-                    "description": "The category id of transaction",
-                    "example": "620960d811efb6729e961639"
+                    "description": "The name category of transaction",
+                    "example": "Разное"
                   }
                  }
               }
@@ -312,7 +317,22 @@
             "content": {
               "application/json": {
                 "schema": {
-                "$ref": "#/components/schemas/Transaction"
+                "example": [
+                            {
+                      "typeTx": "income",
+                      "date": "12.02.2022",
+                      "month": 2,
+                      "year": 2022,
+                      "sum": 1000,
+                      "balance": 3000,
+                      "comment": "Подарок",
+                      "categoryId": "620960d811efb6729e961639",
+                      "owner": "620931770a8d2ef1efb1d157",
+                      "_id": "620b71097645f06b14fe8b17",
+                      "createdAt": "2022-02-15T09:23:21.792Z",
+                      "updatedAt": "2022-02-15T09:23:21.792Z"
+                    }
+                ]
                 }
               }
             }
@@ -345,7 +365,7 @@
                                   "typeTx": "income",
                                   "date": "Mon Feb 14 2022 10:38:51 GMT+0200 (Восточная Европа, стандартное время)",
                                   "month": 2,
-                                  "year": 22,
+                                  "year": 2022,
                                   "sum": 1000,
                                   "balance": 1000,
                                   "comment": "Подарок",
@@ -357,7 +377,7 @@
                                   "typeTx": "income",
                                   "date": "Mon Feb 14 2022 10:39:49 GMT+0200 (Восточная Европа, стандартное время)",
                                   "month": 2,
-                                  "year": 22,
+                                  "year": 2022,
                                   "sum": 1000,
                                   "balance": 2000,
                                   "comment": "Подарок",
@@ -384,15 +404,55 @@
       "get": {
         "tags": ["Transactions"],
         "summary": "Get transaction statistics. Filter by month and year / Получить статистику транзакций. Фильтровать по месяцу и году",
-        "parameters": [],
+        "parameters": [
+             {
+            "name": "month",
+            "in": "query",
+            "description": "The month of transaction",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "The year of transaction",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  
+                  "example": [
+                              {
+                                  "_id": "620b71097645f06b14fe8b17",
+                                  "typeTx": "income",
+                                  "date": "12.02.2022",
+                                  "month": 2,
+                                  "year": 2022,
+                                  "sum": 1000,
+                                  "balance": 3000,
+                                  "comment": "Подарок",
+                                  "categoryId": "620960d811efb6729e961639",
+                                  "owner": "620931770a8d2ef1efb1d157"
+                                },
+                                {
+                                  "_id": "620b7224236699b569139882",
+                                  "typeTx": "income",
+                                  "date": "12.02.2022",
+                                  "month": 2,
+                                  "year": 2022,
+                                  "sum": 1000,
+                                  "balance": 4000,
+                                  "comment": "Подарок",
+                                  "categoryId": "620960d811efb6729e961639",
+                                  "owner": "620931770a8d2ef1efb1d157"
+                                }
+                              ]
                 }
               }
             }
@@ -598,7 +658,8 @@
         "properties": {
           "_id": {
             "type": "string",
-            "description": "The auto-generated id of the user"
+            "description": "The auto-generated id of the user",
+            "example": "620931770a8d2ef1efb1d157"
           },
           "name": {
             "type": "string",
@@ -645,7 +706,8 @@
         "properties": {
           "_id": {
             "type": "string",
-            "description": "The auto-generated id of the user"
+            "description": "The auto-generated id of the user",
+            "example": "620b17567a68b337c61cb6c3"
           },
           "typeTx": {
             "type": "string",
@@ -653,18 +715,18 @@
             "example": "income"
           }, 
           "date": {
-            "type": "string($date)",
+            "type": "string",
             "description": "The date of create transaction",
-            "example": "2022-02-12T05:53:35.180+00:00"
+            "example": "12.02.2022"
           },
           "month": {
             "type": "Number",
-            "description": "The month of create transaction",
+            "description": "The month of create transaction (calculated from date field)",
             "example": "2"
           },
            "year": {
             "type": "Number",
-            "description": "The month of create transaction",
+            "description": "The year of create transaction (calculated from date field)",
             "example": "2022"
           },
           "sum": {
@@ -712,7 +774,8 @@
         "properties": {
           "_id": {
             "type": "string",
-            "description": "The auto-generated id of the user"
+            "description": "The auto-generated id of the user",
+            "example": "620960d811efb6729e961639"
           },
           "nameCategory": {
             "type": "string",
