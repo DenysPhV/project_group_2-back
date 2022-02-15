@@ -2,7 +2,7 @@ const { BadRequest } = require('http-errors');
 
 const { Transaction, User, Category } = require('../../models');
 const { joiSchemaTransaction } = require('../../models/transaction');
-const { balanceCalculation } = require('../../helpers');
+const { balanceCalculation, dateSplit } = require('../../helpers');
 
 const add = async (req, res, next) => {
   try {
@@ -17,12 +17,13 @@ const add = async (req, res, next) => {
     const newBalance = balanceCalculation(typeTx, balance, sum);
 
     if (newBalance < 0) {
-      throw new BadRequest('Недостаточно средств');
+      throw new BadRequest('Not enough money');
     }
-    const dateSplit = date.split('.');
-    const month = dateSplit[1];
-    const year = dateSplit[2];
 
+    // Разделение даты на месяц и год
+    const { month, year } = dateSplit(date);
+
+    // Достаем Id категории
     const { _id: categoryId } = await Category.findOne({ nameCategory });
 
     const newTransaction = await Transaction.create({
