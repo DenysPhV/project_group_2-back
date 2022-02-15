@@ -1,72 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { Conflict } = require('http-errors');
 
-const { Category, Transaction } = require('../models');
-const { joiSchema } = require('../models/category');
+const { getAll, add, remove } = require('../controllers/category');
 const { authenticate } = require('../middleware');
 
 // Получить все категории
-router.get('/', authenticate, async (req, res, next) => {
-  try {
-    const categories = await Category.find();
-    res.json(categories);
-  } catch (error) {
-    next(error);
-  }
-});
+router.get('/', authenticate, getAll);
 
 // Добавление новой категории
-router.post('/', authenticate, async (req, res, next) => {
-  try {
-    const { error } = joiSchema.validate(req.body);
-    if (error) {
-      error.status = 400;
-      throw error;
-    }
-    // Проверка на дубль категории
-    const { nameCategory } = req.body;
-    const tempCategory = await Category.findOne({ nameCategory });
-    if (tempCategory) {
-      throw new Conflict('This category already exists');
-    }
-
-    const newCategory = await Category.create({ ...req.body });
-    res.status(201).json(newCategory);
-  } catch (error) {
-    if (error.message.includes('Validation failed')) {
-      error.status = 404;
-    }
-    next(error);
-  }
-});
+router.post('/', authenticate, add);
 
 // Удалить категорию по id.
-router.delete('/:categoryId', authenticate, async (req, res, next) => {
-  const { categoryId } = req.params;
-  console.log(categoryId);
-  try {
-    const tempTransaction = Transaction.findOne({ categoryId });
-    if (tempTransaction) {
-      throw new Conflict(
-        'This category cannot be deleted because it is used in transactions',
-      );
-    }
-
-    const deleteCategory = await Category.findOneAndRemove({
-      _id: categoryId,
-    });
-
-    if (!deleteCategory) {
-      const error = new Error('Not found');
-      error.status = 404;
-      throw error;
-    }
-
-    res.json({ message: 'Category deleted' });
-  } catch (error) {
-    next(error);
-  }
-});
+router.delete('/:categoryId', authenticate, remove);
 
 module.exports = router;

@@ -2,10 +2,10 @@ const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
-const authRouter = require('./routes/users');
 require('dotenv').config();
 
+const swaggerDocument = require('./swagger.json');
+const authRouter = require('./routes/users');
 const categoryRouter = require('./routes/category');
 const transactionRouter = require('./routes/transactions');
 
