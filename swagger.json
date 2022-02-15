@@ -189,53 +189,30 @@
         "security": [{ "Bearer": [] }],
         
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "type":"object",
-                  "properties":{
-                      "user": {
-                        "type":"object",
-                        "properties":{
-                                "_id":{
-                                  "type":"string",
-                                  "description":"The auto-generated id of the user",
-                                  "example":"507f1f77bcf86cd799439011"
-                                },
-                               "name": {
-                                    "type": "string",
-                                    "description": "The name of the user",
-                                    "example": "Bob"
-                                  }, 
-                                "email": {
-                                  "type": "string",
-                                  "description": "User's email",
-                                  "format": "email"
-                                  },
-                                "token":{
-                                    "type":"String",
-                                    "description":"The token of the user",
-                                    "example":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZmMyMDg1YmQwOTM2NTI4MTA3Y2UyNzQiLCJzaWQiOiI1ZmMyZDJmY2UxZDIwNTA2NzAyYmRkMjIiLCJpYXQiOjE2MDY2MDM1MTYsImV4cCI6MTYwNjYwNzExNn0.rJ_QjU4KvA76H96RHsvOBChK0Vjbd0NmqjMxdQVJIXB"
-                                  },
-                                "balance": {
-                                  "type": "integer",
-                                  "description": "The balance of the user",
-                                  "example": "2500"
-                                  }
-
-                        }
-                      }
-                  
+                "example":{
+                  "_id": "620931770a8d2ef1efb1d157",
+                  "name": "Bob",
+                  "email": "user@example.com",
+                  "balance": 4000,
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDkzMTc3MGE4ZDJlZjFlZmIxZDE1NyIsImlhdCI6MTY0NDkxOTM3OCwiZXhwIjoxNjQ0OTI2NTc4fQ.2-gd5OH--HCblDMXGgKTR9BctXsDrjqjEKvhCsXHiOU",
+                  "createdAt": "2022-02-13T16:27:35.835Z",
+                  "updatedAt": "2022-02-15T10:02:58.235Z"
                   }
+
                 }
               }
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
+            "description": "Bad request "
+                },
+          "401": {
+            "description": "Unauthorized (invalid access token)"
           },
           "409": {
             "description": "Provided email already exists",
@@ -390,7 +367,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request",
             "content": {}
           },
           "401": {
@@ -458,7 +435,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request",
             "content": {}
           },
           "401": {
@@ -641,7 +618,7 @@
             "content": {}
           },
           "409": {
-            "description": "This category cannot be deleted because it is used in transactions",
+            "description": "This category cannot be deleted because it is used in transactions or is missing",
             "content": {}
           }
         }
