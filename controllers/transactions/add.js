@@ -18,16 +18,15 @@ const add = async (req, res, next) => {
     if (newBalance < 0) {
       throw new BadRequest('Недостаточно средств');
     }
-
-    const newDate = new Date(date);
-    const year = newDate.getFullYear();
-    const month = newDate.getMonth();
+    const dateSplit = date.split('.');
+    const month = dateSplit[1];
+    const year = dateSplit[2];
 
     const { _id: categoryId } = await Category.findOne({ nameCategory });
 
     const newTransaction = await Transaction.create({
       typeTx,
-      date: newDate,
+      date,
       month,
       year,
       sum,
