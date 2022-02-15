@@ -386,17 +386,6 @@
         "summary": "Get transaction statistics. Filter by month and year / Получить статистику транзакций. Фильтровать по месяцу и году",
         "parameters": [],
         "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                
-              }
-            }
-          }
-        },
         "responses": {
           "201": {
             "description": "Successful operation",
