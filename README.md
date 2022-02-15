@@ -1,6 +1,6 @@
 # project_group_2-back
 
-## [док для запросов на сервер](https://dvf-project-group-2-back.herokuapp.com/api-docs/)
+## [запросы на сервер](https://dvf-project-group-2-back.herokuapp.com/api-docs/)
 
 ## tasks
 
