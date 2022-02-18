@@ -13,8 +13,12 @@ const add = async (req, res, next) => {
     const { _id, balance } = req.user;
     const { sum, typeTx, comment, nameCategory, date } = req.body;
 
+    const roundedSum = Math.floor(Math.abs(sum));
+
     // Расчет нового баланса
-    const newBalance = balanceCalculation(typeTx, balance, sum);
+    const newBalance = Math.floor(
+      balanceCalculation(typeTx, balance, roundedSum),
+    );
 
     if (newBalance < 0) {
       throw new BadRequest('Not enough money');
@@ -31,7 +35,7 @@ const add = async (req, res, next) => {
       date,
       month,
       year,
-      sum,
+      sum: roundedSum,
       balance: newBalance,
       comment,
       categoryId,
