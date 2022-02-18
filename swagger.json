@@ -451,6 +451,7 @@
         "summary": "Add category / Добавление новой категории",
         "parameters": [],
         "security": [{ "Bearer": [] }],
+        "deprecated": "true",
         "requestBody": {
           "description": "Registration's object",
           "required": true,
@@ -597,6 +598,7 @@
           }
         ],
         "security": [{ "Bearer": [] }],
+        "deprecated": "true",
         "responses": {
           "200": {
             "description": "Successful operation",

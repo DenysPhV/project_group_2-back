@@ -8,9 +8,9 @@ const { authenticate } = require('../middleware');
 router.get('/', authenticate, getAll);
 
 // Добавление новой категории
-router.post('/', authenticate, add);
+// router.post('/', authenticate, add);
 
 // Удалить категорию по id.
-router.delete('/:categoryId', authenticate, remove);
+// router.delete('/:categoryId', authenticate, remove);
 
 module.exports = router;
