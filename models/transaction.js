@@ -32,7 +32,8 @@ const transactionSchema = Schema(
       type: String,
     },
     categoryId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: 'category',
       required: true,
     },
     owner: {

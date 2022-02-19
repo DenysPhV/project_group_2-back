@@ -1,4 +1,4 @@
-const { Transaction } = require('../../models');
+const { Transaction, Category } = require('../../models');
 
 const getStatistics = async (req, res, next) => {
   try {
@@ -11,7 +11,23 @@ const getStatistics = async (req, res, next) => {
       { owner: _id, month: newMonth, year: newYear },
       '-createdAt -updatedAt',
     );
-    res.json(transactions);
+
+    const categories = await Category.find();
+
+    const newTransactions = [];
+    for (let transaction of transactions) {
+      for (const category of categories) {
+        if (String(category._id) === String(transaction.categoryId)) {
+          transaction = {
+            ...transaction._doc,
+            nameCategory: category.nameCategory,
+          };
+          break;
+        }
+      }
+      newTransactions.push(transaction);
+    }
+    res.json(newTransactions);
   } catch (error) {
     next(error);
   }
