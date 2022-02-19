@@ -11,13 +11,10 @@ const add = async (req, res, next) => {
       throw new BadRequest(error.message);
     }
     const { _id, balance } = req.user;
-    const {
-      sum,
-      typeTx,
-      comment,
-      nameCategory = 'Регулярный доход',
-      date,
-    } = req.body;
+    const { sum, typeTx, comment, date } = req.body;
+    let { nameCategory = 'Нерегулярный доход' } = req.body;
+
+    if (comment.toLowerCase() === 'зарплата') nameCategory = 'Регулярный доход';
 
     const roundedSum = Math.floor(Math.abs(sum));
 
