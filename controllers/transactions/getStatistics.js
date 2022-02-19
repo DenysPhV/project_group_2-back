@@ -15,6 +15,7 @@ const getStatistics = async (req, res, next) => {
     const categories = await Category.find();
 
     const newTransactions = [];
+
     for (let transaction of transactions) {
       for (const category of categories) {
         if (String(category._id) === String(transaction.categoryId)) {
@@ -27,6 +28,7 @@ const getStatistics = async (req, res, next) => {
       }
       newTransactions.push(transaction);
     }
+
     res.json(newTransactions);
   } catch (error) {
     next(error);
