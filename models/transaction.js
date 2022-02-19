@@ -32,7 +32,8 @@ const transactionSchema = Schema(
       type: String,
     },
     categoryId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: 'category',
       required: true,
     },
     owner: {
@@ -55,7 +56,7 @@ const joiSchemaTransaction = Joi.object({
   balance: Joi.number(),
   comment: Joi.string(),
   // categoryId: Joi.string().required(),
-  nameCategory: Joi.string().required(),
+  nameCategory: Joi.string(),
 });
 
 module.exports = {
