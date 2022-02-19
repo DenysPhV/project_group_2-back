@@ -25,7 +25,6 @@ const statistics = async (req, res, next) => {
       const result = transactionsCategory.reduce((sum, current) => {
         return sum + current.sum;
       }, 0);
-      console.log(result);
       if (result === 0) {
         return;
       }
@@ -54,8 +53,6 @@ const statistics = async (req, res, next) => {
     }
 
     newTransactions.push({ income: incomeSum }, { expense: expenseSum });
-
-    console.log(newTransactions);
 
     res.json(newTransactions);
   } catch (error) {
