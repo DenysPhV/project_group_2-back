@@ -13,7 +13,7 @@ const login = async (req, res, next) => {
     if (error) {
       throw new BadRequest(error.message);
     }
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
       throw new Unauthorized('Email or password is wrong');
@@ -29,6 +29,7 @@ const login = async (req, res, next) => {
     res.json({
       token,
       user: {
+        name,
         email,
       },
     });
