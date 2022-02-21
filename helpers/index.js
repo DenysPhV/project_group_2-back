@@ -1,7 +1,7 @@
 const balanceCalculation = require('./balanceCalculation');
-const dateSplit = require('./dateSplit');
+const transformationDate = require('./transformationDate');
 
 module.exports = {
   balanceCalculation,
-  dateSplit,
+  transformationDate,
 };
