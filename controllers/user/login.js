@@ -22,14 +22,14 @@ const login = async (req, res, next) => {
     if (!passwordCompare) {
       throw new Unauthorized('Email or password is wrong');
     }
-    const { _id } = user;
+    const { _id, name } = user;
     const payload = { id: _id };
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '2h' });
     await User.findByIdAndUpdate(_id, { token });
     res.json({
       token,
       user: {
-        name: user.name,
+        name,
         email,
       },
     });
