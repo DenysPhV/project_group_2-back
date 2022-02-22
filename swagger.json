@@ -81,11 +81,6 @@
                                   "type": "string",
                                   "description": "User's email",
                                   "format": "email"
-                                  },
-                                "id": {
-                                "type": "string",
-                                "description": "User's id",
-                                "example": "507f1f77bcf86cd799439011"
                                   }
                                }
                              }
