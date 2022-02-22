@@ -441,83 +441,6 @@
       }
     },
 "/api/categories": {
-      "post": {
-        "tags": ["Categories"],
-        "summary": "Add category / Добавление новой категории",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "deprecated": "true",
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                 "type": "object",
-                          "required": ["nameCategory"],
-                           "properties": {
-                              "nameCategory": {
-                              "type": "string",
-                              "description": "Category",
-                              "example": "Разное"
-                              }
-                            }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                         "type": "object",
-        "required": ["nameCategory"],
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "The auto-generated id of the user",
-            "example": "62091748b71f06d6de2cfcf8"
-          },
-          "nameCategory": {
-            "type": "string",
-            "description": "The name of the category",
-            "example": "Разное"
-          }, 
-          "createdAt": {
-            "type": "string($date)",
-            "description": "The date of the category creation",
-            "example": "2022-02-13T14:35:52.388Z"
-          },
-          "updatedAt": {
-            "type": "string($date)",
-            "description": "The date of the category update",
-            "example": "2022-02-13T14:35:52.388Z"
-          }
-        } 
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "401": {
-            "description": "Unauthorized (invalid access token)",
-            "content": {}
-          },
-          "404": {
-            "description": "Validation failed",
-            "content": {}
-          },
-          "409": {
-            "description": "This category already exists",
-            "content": {}
-          }
-        }
-      },
       "get": {
         "tags": ["Categories"],
         "summary": "Get all categories / Получить все категории",
@@ -574,49 +497,6 @@
           "401": {
             "description": "Unauthorized (invalid access token)",
               "content": {}
-          }
-        }
-      }
-
-    },
-"/api/categories/{categoryId}": {
-      "delete": {
-        "tags": ["Categories"],
-        "summary": "Delete category / Удаление категории",
-        "parameters": [
-                {
-            "name": "categoryId",
-            "in": "path",
-            "description": "Categoryes id ('id' field in categoryes object)",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "security": [{ "Bearer": [] }],
-        "deprecated": "true",
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                          "example": {"message": "Category deleted"}
-                          } 
-                }
-              }
-            
-          },
-          "401": {
-            "description": "Unauthorized (invalid access token)",
-              "content": {}
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {}
-          },
-          "409": {
-            "description": "This category cannot be deleted because it is used in transactions or is missing",
-            "content": {}
           }
         }
       }
