@@ -16,12 +16,11 @@ const add = async (req, res, next) => {
 
     if (comment.toLowerCase() === 'зарплата') nameCategory = 'Регулярный доход';
 
-    const roundedSum = Math.floor(Math.abs(sum));
+    const roundedSum = Math.floor(Math.abs(sum) * 100) / 100;
 
     // Расчет нового баланса
-    const newBalance = Math.floor(
-      balanceCalculation(typeTx, balance, roundedSum),
-    );
+    const newBalance =
+      Math.floor(balanceCalculation(typeTx, balance, roundedSum) * 100) / 100;
 
     if (newBalance < 0) {
       throw new BadRequest('Not enough money');
