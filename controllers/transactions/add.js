@@ -2,7 +2,7 @@ const { BadRequest } = require('http-errors');
 
 const { Transaction, User, Category } = require('../../models');
 const { joiSchemaTransaction } = require('../../models/transaction');
-const { balanceCalculation, dateSplit } = require('../../helpers');
+const { balanceCalculation, transformationDate } = require('../../helpers');
 
 const add = async (req, res, next) => {
   try {
@@ -28,14 +28,14 @@ const add = async (req, res, next) => {
     }
 
     // Разделение даты на месяц и год
-    const { month, year } = dateSplit(date);
+    const { newDate, month, year } = transformationDate(date);
 
     // Достаем Id категории
     const { _id: categoryId } = await Category.findOne({ nameCategory });
 
     const newTransaction = await Transaction.create({
       typeTx,
-      date,
+      date: newDate,
       month,
       year,
       sum: roundedSum,
