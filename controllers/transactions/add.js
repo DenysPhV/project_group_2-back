@@ -16,6 +16,7 @@ const add = async (req, res, next) => {
 
     if (comment.toLowerCase() === 'зарплата') nameCategory = 'Регулярный доход';
 
+    // Преобразование сумы в правильный формат
     const roundedSum = Math.floor(Math.abs(sum) * 100) / 100;
 
     // Расчет нового баланса

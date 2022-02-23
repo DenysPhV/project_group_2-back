@@ -14,6 +14,7 @@ const getStatistics = async (req, res, next) => {
 
     const categories = await Category.find();
 
+    // Создание нового массива транзакций с добавлением имя категории
     const newTransactions = [];
     for (let transaction of transactions) {
       for (const category of categories) {
@@ -27,6 +28,7 @@ const getStatistics = async (req, res, next) => {
       }
       newTransactions.push(transaction);
     }
+
     res.json(newTransactions);
   } catch (error) {
     next(error);
