@@ -16,6 +16,7 @@ const getStatistics = async (req, res, next) => {
 
     // Создание нового массива транзакций с добавлением имя категории
     const newTransactions = [];
+
     for (let transaction of transactions) {
       for (const category of categories) {
         if (String(category._id) === String(transaction.categoryId)) {
