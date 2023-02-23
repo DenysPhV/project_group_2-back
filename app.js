@@ -8,6 +8,7 @@ const swaggerDocument = require('./swagger.json');
 const authRouter = require('./routes/users');
 const categoryRouter = require('./routes/category');
 const transactionRouter = require('./routes/transactions');
+const currencyRouter = require('./routes/currency');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/categories', categoryRouter);
 app.use('/api/users', authRouter);
 app.use('/api/transactions', transactionRouter);
+app.use('/api/currency', currencyRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
